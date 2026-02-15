@@ -133,11 +133,24 @@
   border: 2px solid #cfcfcf;
   border-radius: 4px;
   transition: 0.2s;
+  position: relative;
 }
 
 .checkboxLabel input:checked + .customCheckbox {
   background: #6c63ff;
   border-color: #6c63ff;
+}
+
+.checkboxLabel input:checked + .customCheckbox::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 /* Radio */
@@ -210,4 +223,61 @@
   font-size: 13px;
   cursor: pointer;
   margin-top: 4px;
+}
+
+.rangeWrapper {
+  position: relative;
+  width: 100%;
+  height: 36px;
+}
+
+/* Background track */
+.sliderTrack {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  transform: translateY(-50%);
+  border-radius: 4px;
+}
+
+/* Active range */
+.sliderRange {
+  position: absolute;
+  top: 50%;
+  height: 6px;
+  background: #3b82f6;
+  transform: translateY(-50%);
+  border-radius: 4px;
+}
+
+/* Range inputs */
+.range {
+  position: absolute;
+  width: 100%;
+  height: 36px;
+  pointer-events: none;
+  -webkit-appearance: none;
+  background: none;
+}
+
+/* Remove default track */
+.range::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+/* Thumb */
+.range::-webkit-slider-thumb {
+  pointer-events: all;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #3b82f6;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  z-index: 3;
 }

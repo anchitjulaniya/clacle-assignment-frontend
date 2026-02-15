@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "../styles/sidebar.css";
+const maxLimit = 150000;
 
 type Props = {
   modules: string[];
   customers: string[];
   activityTypes: string[];
   onApplyFilters: (filters: any) => void;
-  isOpen:boolean;
+  isOpen: boolean;
 };
 
 export default function Sidebar({
@@ -14,16 +15,18 @@ export default function Sidebar({
   customers,
   activityTypes,
   onApplyFilters,
-  isOpen
+  isOpen,
 }: Props) {
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
   const [selectedCustomers, setSelectedCustomers] = useState<string[]>([]);
   const [activityType, setActivityType] = useState("All");
   const [amount, setAmount] = useState(80000);
+  const [minAmount, setMinAmount] = useState(4000);
+  const [maxAmount, setMaxAmount] = useState(92000);
+
   const [showAllModules, setShowAllModules] = useState(false);
   const [showAllCustomers, setShowAllCustomers] = useState(false);
   const [showAllActivities, setShowAllActivities] = useState(false);
-
 
   const toggleModule = (module: string) => {
     setSelectedModules((prev) =>
@@ -46,14 +49,16 @@ export default function Sidebar({
       selectedModules,
       selectedCustomers,
       activityType,
-      amount,
+      minAmount,
+    maxAmount,
     });
   };
   const applyClear = () => {
     setSelectedModules([]);
     setSelectedCustomers([]);
     setActivityType("All");
-    setAmount(150000);
+    setMinAmount(0);
+    setMaxAmount(150000);
 
     // Reset filters in Dashboard
     onApplyFilters({});
@@ -61,7 +66,6 @@ export default function Sidebar({
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
-
       <h3>Filters</h3>
 
       <h4>Modules</h4>
@@ -114,46 +118,72 @@ export default function Sidebar({
 
       <h4>Activity</h4>
 
-{(showAllActivities
-  ? ["All", ...activityTypes]
-  : ["All", ...activityTypes].slice(0, 4)
-).map((type) => (
-  <label key={type} className="radioLabel">
-    <input
-      type="radio"
-      name="activity"
-      checked={activityType === type}
-      onChange={() => setActivityType(type)}
-    />
-    <span className="customRadio"></span>
-    {type}
-  </label>
-))}
+      {(showAllActivities
+        ? ["All", ...activityTypes]
+        : ["All", ...activityTypes].slice(0, 4)
+      ).map((type) => (
+        <label key={type} className="radioLabel">
+          <input
+            type="radio"
+            name="activity"
+            checked={activityType === type}
+            onChange={() => setActivityType(type)}
+          />
+          <span className="customRadio"></span>
+          {type}
+        </label>
+      ))}
 
-{activityTypes.length > 3 && (
-  <button
-    className="seeMoreBtn"
-    onClick={() => setShowAllActivities(!showAllActivities)}
-  >
-    {showAllActivities ? "See Less" : "See More"}
-  </button>
-)}
+      {activityTypes.length > 3 && (
+        <button
+          className="seeMoreBtn"
+          onClick={() => setShowAllActivities(!showAllActivities)}
+        >
+          {showAllActivities ? "See Less" : "See More"}
+        </button>
+      )}
+
+      <h4>Balance</h4>
+
+      <div className="rangeWrapper">
+   
+        <div className="sliderTrack"></div>
 
 
-      <h4>Amount</h4>
+        <div
+          className="sliderRange"
+          style={{
+            left: `${(minAmount / maxLimit) * 100}%`,
+            width: `${((maxAmount - minAmount) / maxLimit) * 100}%`,
+          }}
+        ></div>
 
-      <input
-        className="slider"
-        type="range"
-        min="0"
-        max="150000"
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-      />
+        <input
+          type="range"
+          min="0"
+          max={maxLimit}
+          value={minAmount}
+          onChange={(e) =>
+            setMinAmount(Math.min(Number(e.target.value), maxAmount - 1))
+          }
+          className="range rangeMin"
+        />
+
+        <input
+          type="range"
+          min="0"
+          max={maxLimit}
+          value={maxAmount}
+          onChange={(e) =>
+            setMaxAmount(Math.max(Number(e.target.value), minAmount + 1))
+          }
+          className="range rangeMax"
+        />
+      </div>
 
       <div className="amountRow">
-        <span>₹ 0</span>
-        <span>₹ {amount.toLocaleString()}</span>
+        <span>₹ {minAmount.toLocaleString()}</span>
+        <span>₹ {maxAmount.toLocaleString()}</span>
       </div>
 
       <div className="filterButtons">
