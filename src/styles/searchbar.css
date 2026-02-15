@@ -3,6 +3,16 @@
   width: 400px;
   max-width: 100%;
 }
+.search-bar{
+  margin-bottom: 20px;
+}
+
+.SearchBar-input{
+          padding: 10px;
+          width: 300px;
+          border-radius: 8px;
+          border: 1px solid #ddd
+        }
 
 .searchIcon {
   position: absolute;
@@ -34,4 +44,15 @@
   margin: 20px 0;
   width: 420px;
   max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .SearchBar-input{
+    width: 200px;
+    margin-right: auto;
+  }
+  .search-bar{
+    padding-left: 10px;
+    padding-top: 5px;
+  }
 }

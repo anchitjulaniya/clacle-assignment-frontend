@@ -6,18 +6,13 @@ type Props = {
 
 export default function SearchBar({ value, onChange }: Props) {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className="search-bar" >
       <input
         type="text"
         placeholder="Search by name, description..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        style={{
-          padding: "10px",
-          width: "300px",
-          borderRadius: "8px",
-          border: "1px solid #ddd"
-        }}
+        className="SearchBar-input"
       />
     </div>
   );

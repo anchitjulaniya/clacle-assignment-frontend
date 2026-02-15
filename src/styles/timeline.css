@@ -23,3 +23,20 @@
   color: #666;
   margin-bottom: 14px;
 }
+
+@media (max-width: 420px) {
+  .timelineDot{
+    display: none;
+  }
+  .timelineWrapper::before{
+    display: none;
+  }
+  .timelineWrapper{
+    padding: 0px;
+  }
+  .timelineTitle{
+    display: none;
+  }
+ 
+}
+

@@ -13,3 +13,12 @@
   top: 200;
   z-index: 100;
 }
+@media (max-width: 768px) {
+  .breadcrumb {
+    font-size: 12px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    overflow-x: auto;
+    display: none;
+  }
+}

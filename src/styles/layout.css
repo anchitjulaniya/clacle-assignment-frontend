@@ -38,6 +38,7 @@ body {
   box-shadow: "0 19px 7px rgb(0 0 0 / 0.1)";
 }
 
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -57,4 +58,15 @@ body {
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+   .contentArea{
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+ 
 }
