@@ -6,7 +6,8 @@ import SearchBar from "../components/SearchBar";
 import data from "../data/activities.json";
 import "../styles/layout.css";
 import Breadcrumb from "../components/Breadcrumb";
-import { ToastContainer } from "react-toastify";
+import Footer from "../components/Footer";
+
 
 export default function Dashboard() {
   const modules = [...new Set(data.map((d) => d.module))];
@@ -20,6 +21,7 @@ export default function Dashboard() {
 
   const applyFilters = (newFilters: any) => {
     setFilters(newFilters);
+    setSidebarOpen(false);
   };
 
   const filteredData = data.filter((item) => {
@@ -119,7 +121,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <Footer />
     </div>
   );
 }
